@@ -12,6 +12,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import timber.log.Timber
 
@@ -56,33 +57,14 @@ class MovieRepository (context: Context){
         retrofit = Retrofit.Builder()
             .baseUrl(MOVIES_URL)
             .addConverterFactory(GsonConverterFactory.create(gsonBuilder.create()))
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .client(httpClientBuilder.build())
             .build()
     }
 
     /**
-     * Function to call the movies api
+     * Function to get the movies api service
      */
-    fun syncMovieNow() {
-        //Prepare and execute the service
-        val service = retrofit.create(MovieApi::class.java)
-        service.getMovies().enqueue(object : Callback<List<Movie>> {
-            override fun onResponse(call: Call<List<Movie>>, response: Response<List<Movie>>) {
-                Timber.d("We got a valid response from the movies api")
-                val movies = response.body()
-                if (movies != null) {
-                    for(movie in movies) {
-                        Timber.d("good, movie: ${movie.title}, ${movie.coverUrl}, ${movie.trailerUrl}")
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<List<Movie>>, t: Throwable) {
-                Timber.e("HTTP GET fail")
-                Timber.e(t)
-            }
-        })
-        Timber.d("Executing an movie HTTP GET")
-    }
+    fun createMoviesServiceCall() = retrofit.create(MovieApi::class.java).getMovies()
 
 }
