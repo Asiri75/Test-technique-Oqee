@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.asiri.traxtest.R
 import com.asiri.traxtest.model.Movie
+import com.asiri.traxtest.ui.AnimationHelper.animationLeft
 import com.asiri.traxtest.ui.list.MainActivity.Companion.MOVIE_EXTRA
 import kotlinx.android.synthetic.main.activity_movie_details.*
 
@@ -38,6 +39,11 @@ class MovieDetailsActivity : AppCompatActivity(), MovieDetailsInterface.View {
     override fun onSupportNavigateUp(): Boolean {
         onBackPressed()
         return super.onSupportNavigateUp()
+    }
+
+    override fun onBackPressed() {
+        super.onBackPressed()
+        animationLeft(this)
     }
 
     override fun onPause() {

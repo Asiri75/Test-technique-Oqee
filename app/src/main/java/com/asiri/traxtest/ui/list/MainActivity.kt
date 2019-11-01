@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.View
 import com.asiri.traxtest.R
 import com.asiri.traxtest.model.Movie
+import com.asiri.traxtest.ui.AnimationHelper.animationRight
 import com.asiri.traxtest.ui.movie.MovieDetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -50,6 +51,7 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.MoviesListAdapterLis
         val intent = Intent(this, MovieDetailsActivity::class.java)
         intent.putExtra(MOVIE_EXTRA, movie)
         startActivity(intent)
+        animationRight(this)
     }
 
     companion object  {
