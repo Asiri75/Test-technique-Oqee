@@ -1,10 +1,12 @@
 package com.asiri.traxtest.ui.list
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import com.asiri.traxtest.R
 import com.asiri.traxtest.model.Movie
+import com.asiri.traxtest.ui.movie.MovieDetailsActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), MoviesListAdapter.MoviesListAdapterListener, MainInterface.View {
@@ -45,7 +47,13 @@ class MainActivity : AppCompatActivity(), MoviesListAdapter.MoviesListAdapterLis
     }
 
     override fun onMovieSelected(movie: Movie) {
+        val intent = Intent(this, MovieDetailsActivity::class.java)
+        intent.putExtra(MOVIE_EXTRA, movie)
+        startActivity(intent)
+    }
 
+    companion object  {
+        const val MOVIE_EXTRA = "MOVIE_EXTRA"
     }
 
     override fun onDestroy() {

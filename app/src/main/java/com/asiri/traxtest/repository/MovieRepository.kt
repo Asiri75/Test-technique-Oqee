@@ -38,7 +38,7 @@ class MovieRepository (context: Context){
                     .get("enus").asJsonObject
                     .get("sizes").asJsonObject
                     .get("sd").asJsonObject
-                    .get("src").asString
+                    .get("srcAlt").asString
             )
         }
 
